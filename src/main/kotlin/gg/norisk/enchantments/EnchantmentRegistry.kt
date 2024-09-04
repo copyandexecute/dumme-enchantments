@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier
 object EnchantmentRegistry {
     val fastFalling: RegistryKey<Enchantment> = of("fast_falling")
     val squish: RegistryKey<Enchantment> = of("squish")
+    val dopamin: RegistryKey<Enchantment> = of("dopamin")
 
     private fun of(name: String): RegistryKey<Enchantment> {
         return RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(MOD_ID, name))

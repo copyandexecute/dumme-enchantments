@@ -97,8 +97,8 @@ object SquishEnchantment {
         }
     }
 
-    fun <T : Entity> applyAnvilRender(
-        entity: T,
+    fun applyAnvilRender(
+        entity: Entity,
         f: Float,
         matrixStack: MatrixStack,
         animation: Animation
