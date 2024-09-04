@@ -6,5 +6,6 @@
     "defaultRequire": 0
   },
   "mixins": [
+    "LivingEntityMixin"
   ]
 }

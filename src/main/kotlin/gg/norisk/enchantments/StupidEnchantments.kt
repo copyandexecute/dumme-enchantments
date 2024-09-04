@@ -10,5 +10,6 @@ object StupidEnchantments : ModInitializer {
 
     override fun onInitialize() {
         logger.info("Helloooo")
+        EnchantmentRegistry.initialize()
     }
 }
