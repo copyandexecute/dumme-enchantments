@@ -3,5 +3,10 @@
     "sounds": [
       "enchantments:goofy_ah_beat"
     ]
+  },
+  "glitch": {
+    "sounds": [
+      "enchantments:glitch"
+    ]
   }
 }

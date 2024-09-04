@@ -1,0 +1,49 @@
+{
+  "description": {
+    "translate": "enchantment.nrc.glitch"
+  },
+  "supported_items": "#minecraft:enchantable/foot_armor",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "anvil_cost": 1,
+  "slots": [
+    "armor"
+  ],
+  "effects": {
+    "minecraft:damage_protection": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 3,
+            "per_level_above_first": 3
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "tags": [
+              {
+                "id": "minecraft:is_fall",
+                "expected": true
+              },
+              {
+                "id": "minecraft:bypasses_invulnerability",
+                "expected": false
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

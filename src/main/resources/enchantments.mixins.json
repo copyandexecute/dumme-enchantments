@@ -12,6 +12,7 @@
   ],
   "client": [
     "client.EntityRendererMixin",
+    "client.GameRendererAccessor",
     "client.LivingEntityRendererMixin"
   ]
 }

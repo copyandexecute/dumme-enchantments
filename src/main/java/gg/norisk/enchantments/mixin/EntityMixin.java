@@ -1,5 +1,6 @@
 package gg.norisk.enchantments.mixin;
 
+import gg.norisk.enchantments.impl.GlitchEnchantment;
 import gg.norisk.enchantments.impl.SquishEnchantment;
 import gg.norisk.enchantments.utils.Animation;
 import net.minecraft.entity.Entity;
@@ -41,5 +42,6 @@ public abstract class EntityMixin implements SquishEnchantment.SquishEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInjection(CallbackInfo ci) {
         SquishEnchantment.INSTANCE.onTick((Entity) (Object) this);
+        GlitchEnchantment.INSTANCE.onTick((Entity) (Object) this);
     }
 }
