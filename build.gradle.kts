@@ -13,6 +13,15 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
+
+    exclusiveContent {
+        forRepository {
+            maven("https://api.modrinth.com/maven")
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 dependencies {
@@ -23,6 +32,9 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
 
     modImplementation("net.silkmc:silk-core:$silkVersion")
+
+    modLocalRuntime("maven.modrinth:sodium:mc1.21-0.5.11")
+    modLocalRuntime("maven.modrinth:nvidium:0.2.9-beta")
 }
 
 tasks {
