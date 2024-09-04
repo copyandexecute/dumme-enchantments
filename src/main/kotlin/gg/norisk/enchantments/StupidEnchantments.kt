@@ -2,6 +2,7 @@ package gg.norisk.enchantments
 
 import gg.norisk.enchantments.impl.DopaminEnchantment
 import gg.norisk.enchantments.impl.GlitchEnchantment
+import gg.norisk.enchantments.impl.HotEnchantment
 import gg.norisk.enchantments.impl.SquishEnchantment
 import gg.norisk.enchantments.sound.SoundRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -20,6 +21,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         EnchantmentRegistry.initialize()
         SoundRegistry.init()
         DopaminEnchantment.initServer()
+        HotEnchantment.initServer()
     }
 
     override fun onInitializeClient() {

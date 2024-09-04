@@ -23,6 +23,15 @@ repositories {
             password = (System.getenv("NORISK_NEXUS_PASSWORD") ?: project.findProperty("noriskMavenPassword") ?: "").toString()
         }
     }
+    maven {
+        url = uri("https://maven.norisk.gg/repository/norisk-production/")
+        credentials {
+            username = (System.getenv("NORISK_NEXUS_USERNAME") ?: project.findProperty("noriskMavenUsername") ?: "").toString()
+            password = (System.getenv("NORISK_NEXUS_PASSWORD") ?: project.findProperty("noriskMavenPassword") ?: "").toString()
+        }
+    }
+    maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+    maven { url = uri("https://maven.wispforest.io") }
 
     exclusiveContent {
         forRepository {
@@ -44,6 +53,12 @@ dependencies {
     modImplementation("net.silkmc:silk-core:$silkVersion")
     modImplementation("net.silkmc:silk-network:$silkVersion")
     modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
+    modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.8")
+
+    val geckolibVersion = "1.21:4.5.6"
+
+    modImplementation("io.wispforest:owo-lib:0.12.10+${minecraftVersion}")
+    modImplementation("software.bernie.geckolib:geckolib-fabric-$geckolibVersion")
 
     modLocalRuntime("maven.modrinth:sodium:mc1.21-0.5.11")
     modLocalRuntime("maven.modrinth:nvidium:0.2.9-beta")
