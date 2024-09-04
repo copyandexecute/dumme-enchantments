@@ -21,6 +21,12 @@
         "adapter": "kotlin",
         "value": "gg.norisk.enchantments.StupidEnchantments"
       }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "gg.norisk.enchantments.StupidEnchantments"
+      }
     ]
   },
   "mixins": [

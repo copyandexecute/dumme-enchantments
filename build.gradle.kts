@@ -2,10 +2,12 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 val javaVersion = JvmTarget.JVM_21
 val silkVersion = "1.10.7"
+val minecraftVersion = "1.21"
 
 plugins {
     kotlin("jvm") version "2.0.0"
     id("fabric-loom") version "1.7-SNAPSHOT"
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 group = "org.example"
@@ -13,6 +15,14 @@ version = "1.0.0"
 
 repositories {
     mavenCentral()
+
+    maven {
+        url = uri("https://maven.norisk.gg/repository/maven-releases/")
+        credentials {
+            username = (System.getenv("NORISK_NEXUS_USERNAME") ?: project.findProperty("noriskMavenUsername") ?: "").toString()
+            password = (System.getenv("NORISK_NEXUS_PASSWORD") ?: project.findProperty("noriskMavenPassword") ?: "").toString()
+        }
+    }
 
     exclusiveContent {
         forRepository {
@@ -32,6 +42,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
 
     modImplementation("net.silkmc:silk-core:$silkVersion")
+    modImplementation("net.silkmc:silk-network:$silkVersion")
+    modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
 
     modLocalRuntime("maven.modrinth:sodium:mc1.21-0.5.11")
     modLocalRuntime("maven.modrinth:nvidium:0.2.9-beta")
