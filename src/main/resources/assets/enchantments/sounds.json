@@ -13,5 +13,10 @@
     "sounds": [
       "enchantments:bouncy"
     ]
+  },
+  "helicopter": {
+    "sounds": [
+      "enchantments:helicopter"
+    ]
   }
 }

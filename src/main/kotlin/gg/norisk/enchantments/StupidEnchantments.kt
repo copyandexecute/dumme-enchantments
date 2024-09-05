@@ -19,6 +19,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         SoundRegistry.init()
         DopaminEnchantment.initServer()
         HotEnchantment.initServer()
+        HelicopterEnchantment.initServer()
     }
 
     override fun onInitializeClient() {
@@ -28,5 +29,6 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         GlitchEnchantment.initClient()
         SlipperyEnchantment.initClient()
         VerificationEnchantment.initClient()
+        HelicopterEnchantment.initClient()
     }
 }

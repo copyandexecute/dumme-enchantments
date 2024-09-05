@@ -12,6 +12,8 @@ object SoundRegistry {
         Registry.register(Registries.SOUND_EVENT, "glitch".toId(), SoundEvent.of("glitch".toId()))
     var BOUNCY =
         Registry.register(Registries.SOUND_EVENT, "bouncy".toId(), SoundEvent.of("bouncy".toId()))
+    var HELICOPTER =
+        Registry.register(Registries.SOUND_EVENT, "helicopter".toId(), SoundEvent.of("helicopter".toId()))
 
     fun init() {
     }

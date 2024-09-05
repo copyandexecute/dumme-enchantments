@@ -9,12 +9,14 @@
     "BowItemMixin",
     "EnchantmentHelperMixin",
     "EntityMixin",
+    "FallingBlockEntityMixin",
     "LivingEntityMixin",
     "PersistentProjectileEntityAccessor",
     "ProjectileEntityMixin"
   ],
   "client": [
     "client.EntityRendererMixin",
+    "client.FallingBlockEntityRendererMixin",
     "client.GameRendererAccessor",
     "client.LivingEntityRendererMixin",
     "client.ModelPartAccessor"

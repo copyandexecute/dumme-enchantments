@@ -16,6 +16,7 @@ object EnchantmentRegistry {
     val slippery: RegistryKey<Enchantment> = of("slippery")
     val bouncy: RegistryKey<Enchantment> = of("bouncy")
     val verification: RegistryKey<Enchantment> = of("verification")
+    val helicopter: RegistryKey<Enchantment> = of("helicopter")
 
     private fun of(name: String): RegistryKey<Enchantment> {
         return RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(MOD_ID, name))
