@@ -3,6 +3,7 @@ package gg.norisk.enchantments
 import gg.norisk.enchantments.EnchantmentRegistry.fastFalling
 import gg.norisk.enchantments.impl.SlotsEnchantment
 import gg.norisk.enchantments.impl.SquishEnchantment
+import gg.norisk.enchantments.impl.VerificationEnchantment
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.Entity
@@ -41,6 +42,7 @@ object EnchantmentUtils {
     fun applyTargetDamage(world: ServerWorld, entity: Entity, damageSource: DamageSource, itemStack: ItemStack?) {
         SquishEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
         SlotsEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
+        VerificationEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
     }
 
     val Vec3d.blockPos get() = BlockPos(x.toInt(), y.toInt(), z.toInt())

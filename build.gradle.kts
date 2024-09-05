@@ -52,6 +52,7 @@ dependencies {
 
     modImplementation("net.silkmc:silk-core:$silkVersion")
     modImplementation("net.silkmc:silk-network:$silkVersion")
+    modImplementation("net.silkmc:silk-commands:$silkVersion")
     modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
     modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.8")
 

@@ -1,0 +1,23 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.nrc.verification"
+  },
+  "effects": {
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "primary_items": "#minecraft:enchantable/sword",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/fire_aspect",
+  "weight": 1
+}

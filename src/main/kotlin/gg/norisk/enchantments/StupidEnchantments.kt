@@ -27,5 +27,6 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         DopaminEnchantment.initClient()
         GlitchEnchantment.initClient()
         SlipperyEnchantment.initClient()
+        VerificationEnchantment.initClient()
     }
 }
