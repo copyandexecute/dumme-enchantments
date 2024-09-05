@@ -14,6 +14,10 @@ object SoundRegistry {
         Registry.register(Registries.SOUND_EVENT, "bouncy".toId(), SoundEvent.of("bouncy".toId()))
     var HELICOPTER =
         Registry.register(Registries.SOUND_EVENT, "helicopter".toId(), SoundEvent.of("helicopter".toId()))
+    var TRASH_OPEN =
+        Registry.register(Registries.SOUND_EVENT, "trash_open".toId(), SoundEvent.of("trash_open".toId()))
+    var TRASH_CLOSE =
+        Registry.register(Registries.SOUND_EVENT, "trash_close".toId(), SoundEvent.of("trash_close".toId()))
 
     fun init() {
     }

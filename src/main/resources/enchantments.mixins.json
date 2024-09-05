@@ -12,6 +12,7 @@
     "FallingBlockEntityMixin",
     "LivingEntityMixin",
     "PersistentProjectileEntityAccessor",
+    "PlayerEntityMixin",
     "ProjectileEntityMixin"
   ],
   "client": [

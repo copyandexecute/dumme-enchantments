@@ -18,5 +18,15 @@
     "sounds": [
       "enchantments:helicopter"
     ]
+  },
+  "trash_open": {
+    "sounds": [
+      "enchantments:trash_open"
+    ]
+  },
+  "trash_close": {
+    "sounds": [
+      "enchantments:trash_close"
+    ]
   }
 }

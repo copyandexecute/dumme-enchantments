@@ -20,11 +20,13 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         DopaminEnchantment.initServer()
         HotEnchantment.initServer()
         HelicopterEnchantment.initServer()
+        TrashEnchantment.initServer()
     }
 
     override fun onInitializeClient() {
         logger.info("Helloooo Client")
         SquishEnchantment.initClient()
+        TrashEnchantment.initClient()
         DopaminEnchantment.initClient()
         GlitchEnchantment.initClient()
         SlipperyEnchantment.initClient()

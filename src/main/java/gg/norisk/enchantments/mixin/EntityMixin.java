@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import gg.norisk.enchantments.impl.GlitchEnchantment;
 import gg.norisk.enchantments.impl.SlipperyEnchantment;
 import gg.norisk.enchantments.impl.SquishEnchantment;
+import gg.norisk.enchantments.impl.TrashEnchantment;
 import gg.norisk.enchantments.utils.Animation;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.SoundEvent;
@@ -48,6 +49,12 @@ public abstract class EntityMixin implements SquishEnchantment.SquishEntity {
         SquishEnchantment.INSTANCE.onTick((Entity) (Object) this);
         GlitchEnchantment.INSTANCE.onTick((Entity) (Object) this);
     }
+
+    @Inject(method = "setSneaking", at = @At("HEAD"))
+    private void setSneakingInjection(boolean bl, CallbackInfo ci) {
+        TrashEnchantment.INSTANCE.handleSneaking((Entity) (Object) this, bl);
+    }
+
 
     @WrapOperation(
             method = "playStepSound",
