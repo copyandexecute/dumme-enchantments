@@ -1,9 +1,13 @@
 package gg.norisk.enchantments.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import gg.norisk.enchantments.impl.GlitchEnchantment;
+import gg.norisk.enchantments.impl.SlipperyEnchantment;
 import gg.norisk.enchantments.impl.SquishEnchantment;
 import gg.norisk.enchantments.utils.Animation;
 import net.minecraft.entity.Entity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,5 +47,13 @@ public abstract class EntityMixin implements SquishEnchantment.SquishEntity {
     private void tickInjection(CallbackInfo ci) {
         SquishEnchantment.INSTANCE.onTick((Entity) (Object) this);
         GlitchEnchantment.INSTANCE.onTick((Entity) (Object) this);
+    }
+
+    @WrapOperation(
+            method = "playStepSound",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V")
+    )
+    private void playStepSoundWrapper(Entity instance, SoundEvent soundEvent, float f, float g, Operation<Void> original) {
+        SlipperyEnchantment.INSTANCE.applyStepSound(instance, soundEvent, f, g, original);
     }
 }

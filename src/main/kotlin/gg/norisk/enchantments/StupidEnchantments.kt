@@ -1,9 +1,6 @@
 package gg.norisk.enchantments
 
-import gg.norisk.enchantments.impl.DopaminEnchantment
-import gg.norisk.enchantments.impl.GlitchEnchantment
-import gg.norisk.enchantments.impl.HotEnchantment
-import gg.norisk.enchantments.impl.SquishEnchantment
+import gg.norisk.enchantments.impl.*
 import gg.norisk.enchantments.sound.SoundRegistry
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.api.ModInitializer
@@ -29,5 +26,6 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         SquishEnchantment.initClient()
         DopaminEnchantment.initClient()
         GlitchEnchantment.initClient()
+        SlipperyEnchantment.initClient()
     }
 }

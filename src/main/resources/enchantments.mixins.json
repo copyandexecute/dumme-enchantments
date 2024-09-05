@@ -13,6 +13,7 @@
   "client": [
     "client.EntityRendererMixin",
     "client.GameRendererAccessor",
-    "client.LivingEntityRendererMixin"
+    "client.LivingEntityRendererMixin",
+    "client.ModelPartAccessor"
   ]
 }
