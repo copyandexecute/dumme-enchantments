@@ -8,5 +8,10 @@
     "sounds": [
       "enchantments:glitch"
     ]
+  },
+  "bouncy": {
+    "sounds": [
+      "enchantments:bouncy"
+    ]
   }
 }

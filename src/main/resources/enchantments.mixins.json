@@ -6,9 +6,12 @@
     "defaultRequire": 0
   },
   "mixins": [
+    "BowItemMixin",
     "EnchantmentHelperMixin",
     "EntityMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "PersistentProjectileEntityAccessor",
+    "ProjectileEntityMixin"
   ],
   "client": [
     "client.EntityRendererMixin",
