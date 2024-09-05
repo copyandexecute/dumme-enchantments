@@ -50,9 +50,6 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.100.7+1.21")
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
 
-    modImplementation("net.silkmc:silk-core:$silkVersion")
-    modImplementation("net.silkmc:silk-network:$silkVersion")
-    modImplementation("net.silkmc:silk-commands:$silkVersion")
     modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
     modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.8")
 
@@ -61,8 +58,22 @@ dependencies {
     modImplementation("io.wispforest:owo-lib:0.12.10+${minecraftVersion}")
     modImplementation("software.bernie.geckolib:geckolib-fabric-$geckolibVersion")
 
-    modLocalRuntime("maven.modrinth:sodium:mc1.21-0.5.11")
-    modLocalRuntime("maven.modrinth:nvidium:0.2.9-beta")
+    modImplementation("maven.modrinth:sodium:mc1.21-0.5.11")
+    modImplementation("maven.modrinth:nvidium:0.2.9-beta")
+    modImplementation("maven.modrinth:auth-me:8.0.0+1.21")
+    modImplementation("maven.modrinth:cloth-config:15.0.130+fabric")
+
+    modImplementation("gg.norisk:noriskclient-fabric-utils:${minecraftVersion}-2.1.16")
+    modImplementation("gg.norisk:noriskclient-zoom:${minecraftVersion}-2.0.2")
+    modImplementation("gg.norisk:ui:${minecraftVersion}-2.2.15")
+    modImplementation("gg.norisk:fullbright:${minecraftVersion}-2.0.0")
+    modImplementation("gg.norisk:nametags:${minecraftVersion}-2.0.0")
+    modImplementation("gg.norisk:nametags:${minecraftVersion}-2.0.0")
+    modImplementation("gg.norisk:freelook:${minecraftVersion}-2.0.2")
+
+    modImplementation("net.silkmc:silk-core:$silkVersion")
+    modImplementation("net.silkmc:silk-network:$silkVersion")
+    modImplementation("net.silkmc:silk-commands:$silkVersion")
 }
 
 tasks {

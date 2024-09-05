@@ -15,6 +15,7 @@ import gg.norisk.enchantments.utils.ItemStackSerializer
 import gg.norisk.enchantments.utils.TrashItemsFeatureRenderer
 import kotlinx.serialization.Serializable
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.render.entity.feature.FeatureRendererContext
 import net.minecraft.client.render.entity.model.EntityModel
@@ -28,6 +29,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import net.minecraft.world.GameRules
 import net.silkmc.silk.commands.command
 import net.silkmc.silk.network.packet.s2cPacket
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
@@ -69,6 +71,14 @@ object TrashEnchantment {
                 player.toggleTrash()
             }
         }
+        ServerLifecycleEvents.SERVER_STARTED.register(ServerLifecycleEvents.ServerStarted {
+            it.gameRules.get(GameRules.DO_DAYLIGHT_CYCLE).set(false, it)
+            it.gameRules.get(GameRules.DO_WEATHER_CYCLE).set(false, it)
+            for (world in it.worlds) {
+                world.timeOfDay = 6000
+                world.resetWeather()
+            }
+        })
     }
 
     private fun ServerPlayerEntity.toggleTrash() {
