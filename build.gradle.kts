@@ -1,6 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.text.SimpleDateFormat
-import java.util.*
 
 val javaVersion = JvmTarget.JVM_21
 val silkVersion = "1.10.7"
@@ -14,7 +12,7 @@ plugins {
 }
 
 group = "gg.norisk"
-version = "${minecraftVersion}-1.0.0"
+version = "${minecraftVersion}-1.0.1"
 
 repositories {
     mavenCentral()

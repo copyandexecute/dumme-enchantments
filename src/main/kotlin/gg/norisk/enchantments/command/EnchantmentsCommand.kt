@@ -15,6 +15,7 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.entry.RegistryEntry
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.ClickEvent
+import net.minecraft.world.GameMode
 import net.minecraft.world.GameRules
 import net.minecraft.world.World
 import net.silkmc.silk.commands.PermissionLevel
@@ -250,5 +251,6 @@ object EnchantmentsCommand {
         player.hungerManager.saturationLevel = 2000f
         player.hungerManager.foodLevel = 2000
         player.inventory.clear()
+        player.changeGameMode(GameMode.SURVIVAL)
     }
 }
