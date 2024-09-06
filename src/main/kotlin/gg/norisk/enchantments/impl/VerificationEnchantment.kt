@@ -42,13 +42,6 @@ object VerificationEnchantment {
     )
 
     fun initClient() {
-        if (!FabricLoader.getInstance().isDevelopmentEnvironment) return
-        clientCommand("verification") {
-            runs {
-                openCaptchaScreen()
-            }
-        }
-
         verificationScreenS2C.receiveOnClient { packet, context ->
             mcCoroutineTask(sync = true, client = true) {
                 val entity = context.client.world?.getEntityById(packet) ?: return@mcCoroutineTask
@@ -57,13 +50,17 @@ object VerificationEnchantment {
                 }
             }
         }
+        if (!FabricLoader.getInstance().isDevelopmentEnvironment) return
+        clientCommand("verification") {
+            runs {
+                openCaptchaScreen()
+            }
+        }
     }
 
     val verificationScreenS2C = s2cPacket<Int>("verification-screen".toId())
 
-    fun
-
-            applyTargetDamage(world: ServerWorld, entity: Entity, damageSource: DamageSource, itemStack: ItemStack?) {
+    fun applyTargetDamage(world: ServerWorld, entity: Entity, damageSource: DamageSource, itemStack: ItemStack?) {
         verification.getLevel(itemStack) ?: return
         val player = damageSource.attacker as? ServerPlayerEntity ?: return
         verificationScreenS2C.send(player.id, player)
