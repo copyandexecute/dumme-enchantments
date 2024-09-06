@@ -16,9 +16,11 @@ import net.minecraft.client.texture.NativeImage
 import net.minecraft.client.texture.NativeImageBackedTexture
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.resource.Resource
 import net.minecraft.resource.ResourceManager
 import net.minecraft.resource.ResourceReloader
 import net.minecraft.resource.ResourceType
+import net.minecraft.resource.metadata.ResourceMetadata
 import net.minecraft.util.Identifier
 import net.minecraft.util.profiler.Profiler
 import net.silkmc.silk.core.task.mcCoroutineTask
@@ -76,10 +78,9 @@ object DopaminEnchantment {
                     prepareExecutor: Executor,
                     applyExecutor: Executor
                 ): CompletableFuture<Void> {
-                    return CompletableFuture.runAsync {
-                        loadGifs(manager)
-                    }.thenCompose(synchronizer::whenPrepared).thenAcceptAsync(
+                    return loadGifs(manager, prepareExecutor).thenCompose(synchronizer::whenPrepared).thenAcceptAsync(
                         {
+                            logger.info("Loaded Gifs...")
                         }, applyExecutor
                     )
                 }
@@ -134,24 +135,33 @@ object DopaminEnchantment {
     // Jup ich hoffe das macht keine Probleme grüße
     fun loadGifs(
         resourceManager: ResourceManager,
-    ) {
-        gifs.clear()
-        resourceManager.findResources("gifs") { it.toString().endsWith(".gif") }.forEach { identifier, resource ->
-            val frames = GifUtils.readGif(resource.inputStream)
+        backgroundExecutor: Executor,
+    ): CompletableFuture<Void> {
+        return CompletableFuture.supplyAsync(
+            { resourceManager.findResources("gifs") { it.toString().endsWith(".gif") } }, backgroundExecutor
+        ).thenComposeAsync({ resources: Map<Identifier, Resource> ->
+            val futures = resources.filter { (_: Identifier, resource: Resource) ->
+                return@filter resource.metadata == ResourceMetadata.NONE
+            }.map { (identifier: Identifier, resource: Resource) ->
+                CompletableFuture.runAsync({
+                    val frames = GifUtils.readGif(resource.inputStream)
 
-            logger.info("Loading Gif $identifier")
+                    logger.info("Loading Gif $identifier")
 
-            for ((index, imageFrame) in frames.withIndex()) {
-                val id = "${identifier.path}_$index".toId()
-                val baos = ByteArrayOutputStream()
-                ImageIO.write(imageFrame.image, "png", baos)
-                baos.flush()
-                MinecraftClient.getInstance().textureManager.registerTexture(
-                    id, NativeImageBackedTexture(NativeImage.read(ByteArrayInputStream(baos.toByteArray())))
-                )
+                    for ((index, imageFrame) in frames.withIndex()) {
+                        val id = "${identifier.path}_$index".toId()
+                        val baos = ByteArrayOutputStream()
+                        ImageIO.write(imageFrame.image, "png", baos)
+                        baos.flush()
+                        MinecraftClient.getInstance().textureManager.registerTexture(
+                            id, NativeImageBackedTexture(NativeImage.read(ByteArrayInputStream(baos.toByteArray())))
+                        )
+                    }
+
+                    gifs.add(Gif(frames.size, identifier, frames.random().width, frames.random().height))
+                }, backgroundExecutor)
             }
-
-            gifs.add(Gif(frames.size, identifier, frames.random().width, frames.random().height))
-        }
+            CompletableFuture.allOf(*futures.toTypedArray())
+        }, backgroundExecutor)
     }
 }
