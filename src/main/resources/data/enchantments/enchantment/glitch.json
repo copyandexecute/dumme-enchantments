@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.nrc.glitch"
+    "translate": "Glitch"
   },
   "supported_items": "#minecraft:enchantable/foot_armor",
   "weight": 1,

@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.nrc.bouncy"
+    "translate": "Bouncy"
   },
   "supported_items": "#minecraft:enchantable/bow",
   "weight": 1,

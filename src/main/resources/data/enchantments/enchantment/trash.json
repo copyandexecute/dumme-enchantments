@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.nrc.trash"
+    "translate": "Trash"
   },
   "supported_items": "#minecraft:enchantable/leg_armor",
   "weight": 1,

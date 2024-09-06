@@ -1,5 +1,6 @@
 package gg.norisk.enchantments
 
+import gg.norisk.enchantments.command.EnchantmentsCommand
 import gg.norisk.enchantments.impl.*
 import gg.norisk.enchantments.sound.SoundRegistry
 import net.fabricmc.api.ClientModInitializer
@@ -21,6 +22,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         HotEnchantment.initServer()
         HelicopterEnchantment.initServer()
         TrashEnchantment.initServer()
+        EnchantmentsCommand.initServer()
     }
 
     override fun onInitializeClient() {

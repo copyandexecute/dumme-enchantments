@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.nrc.fast_falling"
+    "translate": "Fast Falling"
   },
   "supported_items": "#minecraft:enchantable/foot_armor",
   "weight": 5,

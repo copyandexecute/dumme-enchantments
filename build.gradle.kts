@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.text.SimpleDateFormat
+import java.util.*
 
 val javaVersion = JvmTarget.JVM_21
 val silkVersion = "1.10.7"
@@ -8,10 +10,11 @@ plugins {
     kotlin("jvm") version "2.0.0"
     id("fabric-loom") version "1.7-SNAPSHOT"
     kotlin("plugin.serialization") version "2.0.0"
+    `maven-publish`
 }
 
-group = "org.example"
-version = "1.0.0"
+group = "gg.norisk"
+version = "${minecraftVersion}-1.0.0"
 
 repositories {
     mavenCentral()
@@ -51,7 +54,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
 
     modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
-    modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.8")
+    modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.9")
 
     val geckolibVersion = "1.21:4.5.6"
 
@@ -67,7 +70,6 @@ dependencies {
     modImplementation("gg.norisk:noriskclient-zoom:${minecraftVersion}-2.0.2")
     modImplementation("gg.norisk:ui:${minecraftVersion}-2.2.15")
     modImplementation("gg.norisk:fullbright:${minecraftVersion}-2.0.0")
-    modImplementation("gg.norisk:nametags:${minecraftVersion}-2.0.0")
     modImplementation("gg.norisk:nametags:${minecraftVersion}-2.0.0")
     modImplementation("gg.norisk:freelook:${minecraftVersion}-2.0.2")
 
@@ -93,3 +95,67 @@ tasks {
         filesMatching("fabric.mod.json") { expand(properties) }
     }
 }
+
+val sourceJar = tasks.register<Jar>("sourceJar") {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
+//TODO ja eig könnte man das multi gradle build skript machen aber wir wissen alle DAS M ULTIGRADLE HURENSÖHNE SIND
+publishing {
+    publications {
+        create<MavenPublication>("binary") {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+            from(components["java"])
+        }
+        create<MavenPublication>("binaryAndSources") {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+            from(components["java"])
+            artifact(sourceJar)
+        }
+    }
+    repositories {
+        fun MavenArtifactRepository.applyCredentials() = credentials {
+            username = (System.getenv("NORISK_NEXUS_USERNAME") ?: project.findProperty("noriskMavenUsername")).toString()
+            password = (System.getenv("NORISK_NEXUS_PASSWORD") ?: project.findProperty("noriskMavenPassword")).toString()
+        }
+        maven {
+            name = "production"
+            url = uri("https://maven.norisk.gg/repository/norisk-production/")
+            applyCredentials()
+        }
+        maven {
+            name = "dev"
+            // this could also be a maven repo on the dev server
+            // e.g. maven-staging.norisk.gg
+            url = uri("https://maven.norisk.gg/repository/maven-releases/")
+            applyCredentials()
+        }
+    }
+}
+
+tasks.withType<PublishToMavenRepository>().configureEach {
+    val predicate = provider {
+        (repository == publishing.repositories["production"] &&
+                publication == publishing.publications["binary"]) ||
+                (repository == publishing.repositories["dev"] &&
+                        publication == publishing.publications["binaryAndSources"])
+    }
+    onlyIf("publishing binary to the production repository, or binary and sources to the internal dev one") {
+        predicate.get()
+    }
+}
+
+tasks.withType<PublishToMavenLocal>().configureEach {
+    val predicate = provider {
+        publication == publishing.publications["binaryAndSources"]
+    }
+    onlyIf("publishing binary and sources") {
+        predicate.get()
+    }
+}
+

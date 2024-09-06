@@ -1,6 +1,6 @@
 {
   "description": {
-    "translate": "enchantment.nrc.dopamin"
+    "translate": "Dopamin"
   },
   "supported_items": "#minecraft:enchantable/head_armor",
   "weight": 1,
