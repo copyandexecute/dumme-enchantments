@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.damage.DamageSource
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.registry.Registries
 import net.minecraft.server.world.ServerWorld
@@ -19,6 +20,7 @@ object SlotsEnchantment {
     fun applyTargetDamage(world: ServerWorld, entity: Entity, damageSource: DamageSource, itemStack: ItemStack?) {
         slots.getLevel(itemStack) ?: return
         var prevEntity: Entity? = null
+        if (entity is PlayerEntity) return
         entity.discard()
         mcCoroutineTask(sync = true, client = false, howOften = 20) {
             val randomEntity = getRandomEntityType(world)
