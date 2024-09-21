@@ -52,7 +52,9 @@ object GlitchEnchantment {
             val hasGlitch = glitch.getLevel(getEquippedStack(EquipmentSlot.FEET))
             if (!isSpectator) {
                 isGlitching = hasGlitch != null && isSneaking
-                noClip = isGlitching
+                if (isGlitching) {
+                    noClip = isGlitching
+                }
             } else {
                 isGlitching = false
             }
