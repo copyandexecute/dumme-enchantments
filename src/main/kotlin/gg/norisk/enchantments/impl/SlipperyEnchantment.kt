@@ -48,11 +48,11 @@ object SlipperyEnchantment {
         }
     }
 
-    fun applyStepSound(instance: Entity, soundEvent: SoundEvent, f: Float, g: Float, original: Operation<Void>) {
+    fun applyStepSound(instance: Entity, soundEvent: SoundEvent, f: Float, g: Float, original: Operation<Void>): Boolean {
         if (instance is LivingEntity && slippery.getLevel(instance.getEquippedStack(EquipmentSlot.FEET)) != null) {
             original.call(instance, SoundEvents.ENTITY_BREEZE_SLIDE, f, 2f)
-        } else {
-            original.call(instance, soundEvent, f, g)
+            return true
         }
+        return false
     }
 }

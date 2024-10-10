@@ -29,6 +29,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
     override fun onInitializeClient() {
         logger.info("Helloooo Client")
         SquishEnchantment.initClient()
+        RollEnchantment.initClient()
         TrashEnchantment.initClient()
         DopaminEnchantment.initClient()
         GlitchEnchantment.initClient()

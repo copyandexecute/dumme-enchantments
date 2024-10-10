@@ -3,6 +3,7 @@ package gg.norisk.enchantments.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import gg.norisk.enchantments.impl.GlitchEnchantment;
+import gg.norisk.enchantments.impl.RollEnchantment;
 import gg.norisk.enchantments.impl.SlipperyEnchantment;
 import gg.norisk.enchantments.impl.SquishEnchantment;
 import gg.norisk.enchantments.impl.TrashEnchantment;
@@ -52,15 +53,26 @@ public abstract class EntityMixin implements SquishEnchantment.SquishEntity {
 
     @Inject(method = "setSneaking", at = @At("HEAD"))
     private void setSneakingInjection(boolean bl, CallbackInfo ci) {
-        TrashEnchantment.INSTANCE.handleSneaking((Entity) (Object) this, bl);
+        var entity = (Entity) (Object) this;
+        TrashEnchantment.INSTANCE.handleSneaking(entity, bl);
+        RollEnchantment.INSTANCE.handleSneaking(entity, bl);
     }
 
+
+    @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
+    private void stupid$changePitch(double d, double e, CallbackInfo callBackInfo) {
+        RollEnchantment.INSTANCE.handlePitchChange((Entity) (Object) this, d, e, callBackInfo);
+    }
 
     @WrapOperation(
             method = "playStepSound",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V")
     )
     private void playStepSoundWrapper(Entity instance, SoundEvent soundEvent, float f, float g, Operation<Void> original) {
-        SlipperyEnchantment.INSTANCE.applyStepSound(instance, soundEvent, f, g, original);
+        if (SlipperyEnchantment.INSTANCE.applyStepSound(instance, soundEvent, f, g, original)) {
+        } else if (RollEnchantment.INSTANCE.applyStepSound(instance, soundEvent, f, g, original)) {
+        } else {
+            original.call(instance, soundEvent, f, g);
+        }
     }
 }

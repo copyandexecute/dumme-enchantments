@@ -45,5 +45,9 @@ object EnchantmentUtils {
         VerificationEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
     }
 
+    fun Entity.sound(soundEvent: SoundEvent, volume: Number = 1f, pitch: Number = 1f) {
+        world.playSoundFromEntity(null, this, soundEvent, this.soundCategory, volume.toFloat(), pitch.toFloat())
+    }
+
     val Vec3d.blockPos get() = BlockPos(x.toInt(), y.toInt(), z.toInt())
 }

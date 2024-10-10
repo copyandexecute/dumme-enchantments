@@ -42,6 +42,15 @@ repositories {
             includeGroup("maven.modrinth")
         }
     }
+    maven {
+        name = "Ladysnake Mods"
+        url = uri("https://maven.ladysnake.org/releases")
+        content {
+            includeGroup("io.github.ladysnake")
+            includeGroup("org.ladysnake")
+            includeGroupByRegex("dev\\.onyxstudios.*")
+        }
+    }
 }
 
 dependencies {
@@ -52,7 +61,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:1.10.19+kotlin.1.9.23")
 
     modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
-    modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.9")
+    modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.18")
+    modImplementation("io.github.ladysnake:satin:2.0.0")
 
     val geckolibVersion = "1.21:4.5.6"
 

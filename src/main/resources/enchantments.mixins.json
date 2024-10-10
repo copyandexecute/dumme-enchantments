@@ -22,6 +22,8 @@
     "ShovelItemMixin"
   ],
   "client": [
+    "MouseMixin",
+    "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
     "client.EntityRendererMixin",
     "client.FallingBlockEntityRendererMixin",
@@ -29,6 +31,7 @@
     "client.ItemRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.ModelPartAccessor",
+    "client.PlayerEntityRendererMixin",
     "client.WorldRendererMixin"
   ]
 }

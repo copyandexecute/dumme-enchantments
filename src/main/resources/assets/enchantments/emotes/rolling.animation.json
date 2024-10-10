@@ -1,0 +1,62 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"rolling": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.64,
+			"lockVanillaBones": {
+				"bipedRig": false,
+				"bipedHead": true,
+				"bipedBody": false,
+				"bipedLeftArm": false,
+				"bipedRightArm": false,
+				"bipedLeftLeg": true,
+				"bipedRightLeg": true
+			},
+			"bones": {
+				"bipedRig": {
+					"position": {
+						"vector": [0, -7, 0]
+					}
+				},
+				"bipedHead": {
+					"rotation": {
+						"vector": [57.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, -2, -3]
+					}
+				},
+				"bipedBody": {
+					"rotation": {
+						"vector": [20, 0, 0]
+					}
+				},
+				"bipedRightArm": {
+					"rotation": {
+						"vector": [-32.5, 0, 0]
+					}
+				},
+				"bipedLeftArm": {
+					"rotation": {
+						"vector": [-25, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0, -2]
+					}
+				},
+				"bipedLeftLeg": {
+					"position": {
+						"vector": [0, 7, -4]
+					}
+				},
+				"bipedRightLeg": {
+					"position": {
+						"vector": [0, 7, -4]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

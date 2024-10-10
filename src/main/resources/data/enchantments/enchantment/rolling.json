@@ -1,0 +1,22 @@
+{
+  "description": {
+    "translate": "Rolling"
+  },
+  "supported_items": "#minecraft:enchantable/leg_armor",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "anvil_cost": 1,
+  "slots": [
+    "legs"
+  ],
+  "effects": {
+  }
+}
