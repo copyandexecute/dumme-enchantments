@@ -1,8 +1,11 @@
 package gg.norisk.enchantments.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import gg.norisk.enchantments.EnchantmentUtils;
+import gg.norisk.enchantments.impl.MedusaEnchantment;
 import gg.norisk.enchantments.impl.SlipperyEnchantment;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -33,5 +36,16 @@ public abstract class LivingEntityMixin extends Entity {
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
     private float injected(Block instance) {
         return SlipperyEnchantment.INSTANCE.apply((LivingEntity) (Object) this, instance);
+    }
+
+    @ModifyExpressionValue(
+            method = "playHurtSound",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getHurtSound(Lnet/minecraft/entity/damage/DamageSource;)Lnet/minecraft/sound/SoundEvent;")
+    )
+    private SoundEvent stupid$MedusaHurtSound(SoundEvent original) {
+        if (MedusaEnchantment.INSTANCE.isStupidMedusa((LivingEntity) (Object) this)) {
+            return Blocks.STONE.getDefaultState().getSoundGroup().getBreakSound();
+        }
+        return original;
     }
 }

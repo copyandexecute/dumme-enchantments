@@ -24,6 +24,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         HelicopterEnchantment.initServer()
         TrashEnchantment.initServer()
         EnchantmentsCommand.initServer()
+        MedusaEnchantment.initServer()
     }
 
     override fun onInitializeClient() {

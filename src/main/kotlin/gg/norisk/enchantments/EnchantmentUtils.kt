@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.damage.DamageSource
+import net.minecraft.entity.projectile.ProjectileUtil
 import net.minecraft.item.ItemStack
 import net.minecraft.registry.RegistryKey
 import net.minecraft.server.world.ServerWorld
@@ -18,6 +19,8 @@ import net.minecraft.sound.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
+import java.util.*
+import java.util.function.Predicate
 
 object EnchantmentUtils {
     fun LivingEntity.applyGravity(callback: CallbackInfoReturnable<Double>) {
@@ -50,4 +53,24 @@ object EnchantmentUtils {
     }
 
     val Vec3d.blockPos get() = BlockPos(x.toInt(), y.toInt(), z.toInt())
+
+    fun raycastEntity(entity: Entity, i: Int): Optional<Entity> {
+        return run {
+            val vec3d = entity.eyePos
+            val vec3d2 = entity.getRotationVec(1.0f).multiply(i.toDouble())
+            val vec3d3 = vec3d.add(vec3d2)
+            val box = entity.boundingBox.stretch(vec3d2).expand(1.0)
+            val j = i * i
+            val predicate =
+                Predicate { entityx: Entity -> !entityx.isSpectator && entityx.canHit() }
+            val entityHitResult = ProjectileUtil.raycast(entity, vec3d, vec3d3, box, predicate, j.toDouble())
+            if (entityHitResult == null) {
+                Optional.empty()
+            } else {
+                if (vec3d.squaredDistanceTo(entityHitResult.pos) > j.toDouble()) Optional.empty() else Optional.of(
+                    entityHitResult.entity
+                )
+            }
+        }
+    }
 }
