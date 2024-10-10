@@ -19,6 +19,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         EnchantmentRegistry.initialize()
         SoundRegistry.init()
         DopaminEnchantment.initServer()
+        ColossalEnchantment.initServer()
         HotEnchantment.initServer()
         HelicopterEnchantment.initServer()
         TrashEnchantment.initServer()

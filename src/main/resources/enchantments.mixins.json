@@ -6,20 +6,27 @@
     "defaultRequire": 0
   },
   "mixins": [
+    "AxeItemMixin",
     "BowItemMixin",
     "EnchantmentHelperMixin",
     "EntityMixin",
     "FallingBlockEntityMixin",
+    "HoeItemMixin",
     "LivingEntityMixin",
     "PersistentProjectileEntityAccessor",
     "PlayerEntityMixin",
-    "ProjectileEntityMixin"
+    "ProjectileEntityMixin",
+    "ServerWorldMixin",
+    "ShovelItemMixin"
   ],
   "client": [
+    "client.ClientWorldMixin",
     "client.EntityRendererMixin",
     "client.FallingBlockEntityRendererMixin",
     "client.GameRendererAccessor",
+    "client.ItemRendererMixin",
     "client.LivingEntityRendererMixin",
-    "client.ModelPartAccessor"
+    "client.ModelPartAccessor",
+    "client.WorldRendererMixin"
   ]
 }
