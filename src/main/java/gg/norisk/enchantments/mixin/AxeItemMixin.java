@@ -40,7 +40,7 @@ public abstract class AxeItemMixin {
             BlockHitResult raycast = ColossalEnchantment.INSTANCE.raycast(world, playerEntity, RaycastContext.FluidHandling.WATER);
             Integer size = EnchantmentUtils.INSTANCE.getLevel(EnchantmentRegistry.INSTANCE.getColossal(), playerEntity.getMainHandStack());
             if (size != null) {
-                ColossalEnchantment.INSTANCE.getSurroundingBlocks(blockPos, world, size, raycast.getSide(), (newPos, newState) -> {
+                ColossalEnchantment.INSTANCE.getSurroundingBlocks(blockPos, world, size, raycast.getSide(), false, (newPos, newState) -> {
                     Optional<BlockState> result = tryStrip(world, newPos, playerEntity, newState);
                     result.ifPresent(blockState -> {
                         ItemStack itemStack = itemUsageContext.getStack();

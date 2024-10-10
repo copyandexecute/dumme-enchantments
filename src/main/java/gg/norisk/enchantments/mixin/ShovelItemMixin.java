@@ -40,7 +40,7 @@ public abstract class ShovelItemMixin {
             BlockHitResult raycast = ColossalEnchantment.INSTANCE.raycast(world, playerEntity, RaycastContext.FluidHandling.WATER);
             Integer size = EnchantmentUtils.INSTANCE.getLevel(EnchantmentRegistry.INSTANCE.getColossal(), playerEntity.getMainHandStack());
             if (size != null) {
-                ColossalEnchantment.INSTANCE.getSurroundingBlocks(itemUsageContext.getBlockPos(), world, size, raycast.getSide(), (blockPos, blockState) -> {
+                ColossalEnchantment.INSTANCE.getSurroundingBlocks(itemUsageContext.getBlockPos(), world, size, raycast.getSide(), false, (blockPos, blockState) -> {
                     BlockState blockState2 = PATH_STATES.get(blockState.getBlock());
                     BlockState blockState3 = null;
                     if (blockState2 != null && world.getBlockState(blockPos.up()).isAir()) {

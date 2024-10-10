@@ -91,7 +91,11 @@ object ColossalEnchantment {
     }
 
     fun getSurroundingBlocks(
-        blockPos: BlockPos, world: World, size: Int, side: Direction,  // Die Richtung, in die der Strahl verläuft
+        blockPos: BlockPos,
+        world: World,
+        size: Int,
+        side: Direction,  // Die Richtung, in die der Strahl verläuft
+        isPlacing: Boolean = false,
         callBack: BiConsumer<BlockPos, BlockState>
     ) {
         // Schleife über alle x, y, z Offsets
@@ -99,7 +103,7 @@ object ColossalEnchantment {
             for (y in -size..size) {
                 for (z in -size..size) {
                     // Berechne die neue Blockposition relativ zur Trefferposition
-                    val newBlockPos = blockPos.add(x, y, z).offset(side, -size)
+                    val newBlockPos = blockPos.add(x, y, z).offset(side, if (isPlacing) size else -size)
 
                     // Stelle sicher, dass wir nicht den zentralen Block (den ursprünglich getroffenen Block) erneut rendern
                     //if (newBlockPos == blockPos) continue

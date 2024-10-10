@@ -41,7 +41,7 @@ public abstract class HoeItemMixin {
             BlockHitResult raycast = ColossalEnchantment.INSTANCE.raycast(world, playerEntity, RaycastContext.FluidHandling.WATER);
             Integer size = EnchantmentUtils.INSTANCE.getLevel(EnchantmentRegistry.INSTANCE.getColossal(), playerEntity.getMainHandStack());
             if (size != null) {
-                ColossalEnchantment.INSTANCE.getSurroundingBlocks(itemUsageContext.getBlockPos(), world, size, raycast.getSide(), (blockPos, blockState) -> {
+                ColossalEnchantment.INSTANCE.getSurroundingBlocks(itemUsageContext.getBlockPos(), world, size, raycast.getSide(), false, (blockPos, blockState) -> {
                     Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>> pair = TILLING_ACTIONS.get(
                             world.getBlockState(blockPos).getBlock()
                     );
