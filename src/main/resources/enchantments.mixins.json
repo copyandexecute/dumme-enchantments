@@ -16,6 +16,7 @@
     "PersistentProjectileEntityAccessor",
     "PlayerEntityMixin",
     "ProjectileEntityMixin",
+    "ServerPlayerEntityMixin",
     "ServerWorldMixin",
     "ShovelItemMixin"
   ],

@@ -14,9 +14,11 @@ import net.minecraft.client.render.model.BakedModel
 import net.minecraft.client.render.model.json.ModelTransformationMode
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.entity.Entity
+import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.network.packet.s2c.play.BlockBreakingProgressS2CPacket
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
@@ -161,5 +163,16 @@ object ColossalEnchantment {
                 }
             }
         }
+    }
+
+    fun multiplyDamage(
+        original: Float,
+        entity: Entity,
+        f: Float,
+        damageSource: DamageSource,
+        player: ServerPlayerEntity
+    ): Float {
+        val scale = colossal.getLevel(player.mainHandStack) ?: return original
+        return original * (scale * 3)
     }
 }
