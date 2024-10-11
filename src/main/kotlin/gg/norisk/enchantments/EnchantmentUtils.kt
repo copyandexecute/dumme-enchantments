@@ -44,6 +44,7 @@ object EnchantmentUtils {
     fun applyTargetDamage(world: ServerWorld, entity: Entity, damageSource: DamageSource, itemStack: ItemStack?) {
         SquishEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
         SlotsEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
+        MemeEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
         VerificationEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
         BalloonEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
     }

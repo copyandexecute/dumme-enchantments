@@ -62,6 +62,7 @@ dependencies {
 
     modImplementation("gg.norisk:datatracker:${minecraftVersion}-1.0.7")
     modImplementation("gg.norisk:emote-lib:${minecraftVersion}-1.0.18")
+    modImplementation("gg.norisk:owoplus:${minecraftVersion}-1.0.6")
     modImplementation("io.github.ladysnake:satin:2.0.0")
 
     val geckolibVersion = "1.21:4.5.6"
@@ -74,7 +75,7 @@ dependencies {
     modImplementation("maven.modrinth:auth-me:8.0.0+1.21")
     modImplementation("maven.modrinth:cloth-config:15.0.130+fabric")
 
-    modImplementation("gg.norisk:noriskclient-fabric-utils:${minecraftVersion}-2.1.16")
+    modImplementation("gg.norisk:noriskclient-fabric-utils:${minecraftVersion}-2.1.27")
     modImplementation("gg.norisk:noriskclient-zoom:${minecraftVersion}-2.0.2")
     modImplementation("gg.norisk:ui:${minecraftVersion}-2.2.15")
     modImplementation("gg.norisk:fullbright:${minecraftVersion}-2.0.0")

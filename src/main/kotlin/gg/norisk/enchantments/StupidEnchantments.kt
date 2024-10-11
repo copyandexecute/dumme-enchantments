@@ -40,5 +40,6 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         SlipperyEnchantment.initClient()
         VerificationEnchantment.initClient()
         HelicopterEnchantment.initClient()
+        MemeEnchantment.initClient()
     }
 }
