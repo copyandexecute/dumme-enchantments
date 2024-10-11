@@ -6,6 +6,7 @@
     "defaultRequire": 0
   },
   "mixins": [
+    "ArrowEntityMixin",
     "AxeItemMixin",
     "BlockItemMixin",
     "BowItemMixin",
@@ -36,6 +37,7 @@
     "client.ModelPartAccessor",
     "client.ModelPartMixin",
     "client.PlayerEntityRendererMixin",
+    "client.ProjectileEntityRendererMixin",
     "client.SinglePartEntityModelMixin",
     "client.WorldRendererMixin"
   ]
