@@ -50,4 +50,17 @@ public abstract class KeyboardInputMixin extends Input {
             ci.cancel();
         }
     }
+
+    @Inject(
+            method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z", ordinal = 5)
+    )
+    private void stupid$RamForward(boolean bl, float f, CallbackInfo ci) {
+        var player = MinecraftClient.getInstance().player;
+        if (player == null) return;
+        if (EnchantmentUtils.INSTANCE.getLevel(EnchantmentRegistry.INSTANCE.getRam(), player.getActiveItem()) != null) {
+            pressingForward = true;
+            movementForward = 1f;
+        }
+    }
 }
