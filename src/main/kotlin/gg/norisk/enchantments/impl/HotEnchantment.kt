@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.sound.SoundCategory
 import net.minecraft.sound.SoundEvents
+import net.silkmc.silk.core.entity.directionVector
 
 object HotEnchantment {
     private val support = listOf(EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND)
