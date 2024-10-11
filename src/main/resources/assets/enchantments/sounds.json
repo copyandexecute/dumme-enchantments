@@ -28,5 +28,15 @@
     "sounds": [
       "enchantments:trash_close"
     ]
+  },
+  "balloon_blow_up": {
+    "sounds": [
+      "enchantments:balloon_blow_up"
+    ]
+  },
+  "balloon_pop": {
+    "sounds": [
+      "enchantments:balloon_pop"
+    ]
   }
 }

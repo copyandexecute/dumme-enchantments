@@ -24,15 +24,19 @@
   ],
   "client": [
     "MouseMixin",
+    "client.AnimalModelMixin",
     "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
+    "client.EntityModelMixin",
     "client.EntityRendererMixin",
     "client.FallingBlockEntityRendererMixin",
     "client.GameRendererAccessor",
     "client.ItemRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.ModelPartAccessor",
+    "client.ModelPartMixin",
     "client.PlayerEntityRendererMixin",
+    "client.SinglePartEntityModelMixin",
     "client.WorldRendererMixin"
   ]
 }

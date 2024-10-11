@@ -1,6 +1,7 @@
 package gg.norisk.enchantments
 
 import gg.norisk.enchantments.EnchantmentRegistry.fastFalling
+import gg.norisk.enchantments.impl.BalloonEnchantment
 import gg.norisk.enchantments.impl.SlotsEnchantment
 import gg.norisk.enchantments.impl.SquishEnchantment
 import gg.norisk.enchantments.impl.VerificationEnchantment
@@ -46,6 +47,7 @@ object EnchantmentUtils {
         SquishEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
         SlotsEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
         VerificationEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
+        BalloonEnchantment.applyTargetDamage(world, entity, damageSource, itemStack)
     }
 
     fun Entity.sound(soundEvent: SoundEvent, volume: Number = 1f, pitch: Number = 1f) {

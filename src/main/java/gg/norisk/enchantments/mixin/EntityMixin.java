@@ -42,6 +42,8 @@ public abstract class EntityMixin implements SquishEnchantment.SquishEntity, Med
     private Float stupidLimbSpeed;
     @Unique
     private Float stupidLimbPos;
+    @Unique
+    private Animation stupidBalloonAnimation;
 
     @NotNull
     @Override

@@ -18,8 +18,13 @@ object SoundRegistry {
         Registry.register(Registries.SOUND_EVENT, "trash_open".toId(), SoundEvent.of("trash_open".toId()))
     var TRASH_CLOSE =
         Registry.register(Registries.SOUND_EVENT, "trash_close".toId(), SoundEvent.of("trash_close".toId()))
+    val BALLOON_POP = register("balloon_pop")
+    val BALLOON_BLOW_UP = register("balloon_blow_up")
 
     fun init() {
     }
 
+    private fun register(string: String): SoundEvent {
+        return Registry.register(Registries.SOUND_EVENT, string.toId(), SoundEvent.of(string.toId()))
+    }
 }
