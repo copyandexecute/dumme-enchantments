@@ -91,6 +91,57 @@ object EnchantmentsCommand {
                 }
             }
         }
+        command("dummeenchantmentsnichtausführen2") {
+            requires { it.hasPermissionLevel(PermissionLevel.COMMAND_RIGHTS.level) }
+            literal("1") {
+                runs {
+                    this.default()
+                    this.roll()
+                }
+            }
+            literal("2") {
+                runs {
+                    this.default()
+                    this.balloon()
+                }
+            }
+            literal("3") {
+                runs {
+                    this.default()
+                    this.colossal()
+                }
+            }
+            literal("4") {
+                runs {
+                    this.default()
+                    this.inverted()
+                }
+            }
+            literal("5") {
+                runs {
+                    this.default()
+                    this.aimbot()
+                }
+            }
+            literal("6") {
+                runs {
+                    this.default()
+                    this.ram()
+                }
+            }
+            literal("7") {
+                runs {
+                    this.default()
+                    this.meme()
+                }
+            }
+            literal("8") {
+                runs {
+                    this.default()
+                    this.medusa()
+                }
+            }
+        }
     }
 
     private fun <S : ServerCommandSource> CommandContext<S>.helicopter() {
@@ -151,6 +202,131 @@ object EnchantmentsCommand {
                 color = Color.LIGHT_GRAY.rgb
             }
         })
+    }
+
+    private fun <S : ServerCommandSource> CommandContext<S>.medusa() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.DIAMOND_HELMET) {
+            addEnchantment(EnchantmentRegistry.medusa.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.DIAMOND_HELMET) {
+            addEnchantment(EnchantmentRegistry.medusa.getEntry(player.world), 2)
+        })
+        player.giveItemStack(itemStack(Items.PARROT_SPAWN_EGG, 64) {})
+
+        player.sendMessage(literalText {
+            text("Tipp: die entities müssen dich anschauen") {
+                italic = true
+                color = Color.LIGHT_GRAY.rgb
+            }
+        })
+    }
+
+    private fun <S : ServerCommandSource> CommandContext<S>.meme() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.WOODEN_SWORD) {
+            addEnchantment(EnchantmentRegistry.meme.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.PIG_SPAWN_EGG, 1) {})
+    }
+
+    private fun <S : ServerCommandSource> CommandContext<S>.ram() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.SHIELD) {
+            addEnchantment(EnchantmentRegistry.ram.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.PIG_SPAWN_EGG, 64) {})
+
+        player.sendMessage(literalText {
+            text("Tipp: gedrückt halten") {
+                italic = true
+                color = Color.LIGHT_GRAY.rgb
+            }
+        })
+    }
+
+    private fun <S : ServerCommandSource> CommandContext<S>.aimbot() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.BOW) {
+            addEnchantment(EnchantmentRegistry.aimbot.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.ARROW, 64) {})
+        player.giveItemStack(itemStack(Items.ARROW, 64) {})
+        player.giveItemStack(itemStack(Items.ARROW, 64) {})
+
+        player.giveItemStack(itemStack(Items.SHEEP_SPAWN_EGG, 64) {})
+    }
+
+    private fun <S : ServerCommandSource> CommandContext<S>.roll() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.LEATHER_LEGGINGS) {
+            addEnchantment(EnchantmentRegistry.rolling.getEntry(player.world), 1)
+        })
+
+        player.sendMessage(literalText {
+            text("Tipp: sneaken zum togglen") {
+                italic = true
+                color = Color.LIGHT_GRAY.rgb
+            }
+        })
+    }
+
+    private fun <S : ServerCommandSource> CommandContext<S>.inverted() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.DIAMOND_BOOTS) {
+            addEnchantment(EnchantmentRegistry.inverted.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.DIAMOND_LEGGINGS) {
+            addEnchantment(EnchantmentRegistry.inverted.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.DIAMOND_HELMET) {
+            addEnchantment(EnchantmentRegistry.inverted.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.WOODEN_SWORD) {
+            addEnchantment(EnchantmentRegistry.inverted.getEntry(player.world), 1)
+        })
+        player.giveItemStack(itemStack(Items.VILLAGER_SPAWN_EGG, 64) {
+        })
+    }
+
+
+    private fun <S : ServerCommandSource> CommandContext<S>.colossal() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.WOODEN_SWORD) {
+            addEnchantment(EnchantmentRegistry.colossal.getEntry(player.world), 3)
+        })
+        player.inventory.setStack(3, itemStack(Items.DIAMOND_PICKAXE) {
+            addEnchantment(EnchantmentRegistry.colossal.getEntry(player.world), 1)
+        })
+        player.inventory.setStack(5, itemStack(Items.DIAMOND_SHOVEL) {
+            addEnchantment(EnchantmentRegistry.colossal.getEntry(player.world), 4)
+        })
+        player.inventory.setStack(7, itemStack(Items.NETHERITE_AXE) {
+            addEnchantment(EnchantmentRegistry.colossal.getEntry(player.world), 1)
+        })
+        player.inventory.setStack(8, itemStack(Items.OAK_LOG, 64) {
+            addEnchantment(EnchantmentRegistry.colossal.getEntry(player.world), 1)
+        })
+    }
+
+
+    private fun <S : ServerCommandSource> CommandContext<S>.balloon() {
+        val player = this.source.playerOrThrow
+
+        player.giveItemStack(itemStack(Items.WOODEN_SWORD) {
+            addEnchantment(EnchantmentRegistry.balloon.getEntry(player.world), 1)
+        })
+
+        player.giveItemStack(itemStack(Items.PIG_SPAWN_EGG) {})
+        player.giveItemStack(itemStack(Items.VILLAGER_SPAWN_EGG) {})
+        player.giveItemStack(itemStack(Items.DONKEY_SPAWN_EGG) {})
     }
 
     private fun <S : ServerCommandSource> CommandContext<S>.trash() {
