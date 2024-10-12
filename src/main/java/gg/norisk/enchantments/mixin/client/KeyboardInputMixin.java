@@ -45,6 +45,14 @@ public abstract class KeyboardInputMixin extends Input {
             ci.cancel();
         }
         if (EnchantmentUtils.INSTANCE.getLevel(EnchantmentRegistry.INSTANCE.getInverted(), player.getEquippedStack(EquipmentSlot.LEGS)) != null) {
+            if (EnchantmentUtils.INSTANCE.getLevel(EnchantmentRegistry.INSTANCE.getInverted(), player.getEquippedStack(EquipmentSlot.FEET)) == null) {
+                this.pressingForward = this.settings.forwardKey.isPressed();
+                this.pressingBack = this.settings.backKey.isPressed();
+                this.pressingLeft = this.settings.leftKey.isPressed();
+                this.pressingRight = this.settings.rightKey.isPressed();
+                this.movementForward = getMovementMultiplier(this.pressingForward, this.pressingBack);
+                this.movementSideways = getMovementMultiplier(this.pressingLeft, this.pressingRight);
+            }
             this.jumping = this.settings.sneakKey.isPressed();
             this.sneaking = this.settings.jumpKey.isPressed();
             ci.cancel();
