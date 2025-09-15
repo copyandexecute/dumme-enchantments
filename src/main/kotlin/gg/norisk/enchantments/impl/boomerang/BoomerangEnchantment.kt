@@ -7,6 +7,7 @@ import gg.norisk.enchantments.command.EnchantmentsCommand.getEntry
 import net.minecraft.item.Items
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.HoverEvent
+import net.silkmc.silk.commands.PermissionLevel
 import net.silkmc.silk.commands.command
 import net.silkmc.silk.core.item.itemStack
 import net.silkmc.silk.core.text.literal
@@ -16,6 +17,7 @@ import java.awt.Color
 object BoomerangEnchantment {
     fun initServer() {
         command("enchantments") {
+            requiresPermissionLevel(PermissionLevel.OWNER)
             literal("boomerang") {
                 runs {
                     this.default()

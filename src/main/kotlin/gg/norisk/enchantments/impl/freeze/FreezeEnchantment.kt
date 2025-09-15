@@ -15,7 +15,6 @@ import gg.norisk.enchantments.command.EnchantmentsCommand.default
 import gg.norisk.enchantments.command.EnchantmentsCommand.getEntry
 import gg.norisk.enchantments.sound.SoundRegistry
 import gg.norisk.enchantments.utils.Animation
-import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
@@ -33,20 +32,17 @@ import net.minecraft.item.Items
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.server.world.ServerWorld
-import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.HoverEvent
-import net.minecraft.text.Text
 import net.minecraft.util.math.AffineTransformation
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.Vec3d
 import net.minecraft.world.event.GameEvent
+import net.silkmc.silk.commands.PermissionLevel
 import org.joml.Vector3f
 import net.silkmc.silk.commands.command
 import net.silkmc.silk.core.item.itemStack
 import net.silkmc.silk.core.kotlin.ticks
 import net.silkmc.silk.core.task.mcCoroutineTask
-import net.silkmc.silk.core.text.broadcastText
 import net.silkmc.silk.core.text.literal
 import net.silkmc.silk.core.text.literalText
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
@@ -60,7 +56,7 @@ import kotlin.time.Duration.Companion.seconds
 
 object FreezeEnchantment {
     interface IFrozenEntity {
-        var nrc_lastEntityRenderState: EntityRenderState?
+        var nrc_lastEntityRenderStateLol: EntityRenderState?
     }
 
     fun initServer() {
@@ -70,6 +66,7 @@ object FreezeEnchantment {
         )
 
         command("enchantments") {
+            requiresPermissionLevel(PermissionLevel.OWNER)
             literal("freeze") {
                 runs {
                     this.default()

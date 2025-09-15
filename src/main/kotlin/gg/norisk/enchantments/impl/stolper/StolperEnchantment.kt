@@ -26,6 +26,7 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.HoverEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
+import net.silkmc.silk.commands.PermissionLevel
 import net.silkmc.silk.commands.command
 import net.silkmc.silk.core.item.itemStack
 import net.silkmc.silk.core.text.literal
@@ -42,6 +43,7 @@ object StolperEnchantment {
             Vec3dSerializer
         )
         command("enchantments") {
+            requiresPermissionLevel(PermissionLevel.OWNER)
             literal("stolper") {
                 runs {
                     this.default()

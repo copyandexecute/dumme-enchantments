@@ -34,6 +34,7 @@ import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.HoverEvent
 import net.minecraft.util.Arm
 import net.minecraft.util.Hand
+import net.silkmc.silk.commands.PermissionLevel
 import net.silkmc.silk.commands.command
 import net.silkmc.silk.core.item.itemStack
 import net.silkmc.silk.core.math.geometry.filledCirclePositionSet
@@ -49,6 +50,7 @@ import kotlin.random.Random
 object PressLuftHammer {
     fun initServer() {
         command("enchantments") {
+            requiresPermissionLevel(PermissionLevel.OWNER)
             literal("presslufthammer") {
                 runs {
                     this.default()

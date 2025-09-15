@@ -20,12 +20,12 @@ public abstract class EntityMixin implements FreezeEnchantment.IFrozenEntity {
     private EntityRenderState renderState;
 
     @Override
-    public void setNrc_lastEntityRenderState(@Nullable EntityRenderState renderState) {
+    public void setNrc_lastEntityRenderStateLol(@Nullable EntityRenderState renderState) {
         this.renderState = renderState;
     }
 
     @Override
-    public @Nullable EntityRenderState getNrc_lastEntityRenderState() {
+    public @Nullable EntityRenderState getNrc_lastEntityRenderStateLol() {
         return renderState;
     }
 

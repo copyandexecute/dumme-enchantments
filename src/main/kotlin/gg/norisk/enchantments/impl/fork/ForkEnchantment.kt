@@ -63,6 +63,7 @@ import kotlin.jvm.optionals.getOrNull
 import kotlin.math.pow
 import kotlin.random.Random
 import net.minecraft.registry.Registries
+import net.silkmc.silk.commands.PermissionLevel
 
 object ForkEnchantment {
 
@@ -92,6 +93,7 @@ object ForkEnchantment {
         }
 
         command("enchantments") {
+            requiresPermissionLevel(PermissionLevel.OWNER)
             literal("fork") {
                 runs {
                     this.default()

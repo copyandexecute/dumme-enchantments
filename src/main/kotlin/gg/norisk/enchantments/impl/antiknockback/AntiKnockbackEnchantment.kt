@@ -15,6 +15,7 @@ import net.minecraft.item.Items
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.HoverEvent
 import net.minecraft.util.math.Vec3d
+import net.silkmc.silk.commands.PermissionLevel
 import net.silkmc.silk.commands.command
 import net.silkmc.silk.core.entity.modifyVelocity
 import net.silkmc.silk.core.item.itemStack
@@ -28,6 +29,7 @@ import kotlin.time.Duration.Companion.seconds
 object AntiKnockbackEnchantment {
     fun initServer() {
         command("enchantments") {
+            requiresPermissionLevel(PermissionLevel.OWNER)
             literal("antiknockback") {
                 runs {
                     this.default()
