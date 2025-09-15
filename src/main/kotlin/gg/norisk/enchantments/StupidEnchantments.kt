@@ -17,7 +17,9 @@ import gg.norisk.enchantments.sound.SoundRegistry
 import gg.norisk.enchantments.utils.CameraShaker
 import gg.norisk.satisfying.*
 import net.fabricmc.api.ClientModInitializer
+import net.fabricmc.api.EnvType
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.MinecraftClient
 import net.minecraft.util.Identifier
 import net.silkmc.silk.commands.clientCommand
@@ -60,6 +62,10 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         //SatisfyingSuperStar.initServer()
         //SatisfyingBlockAnimation.initServer()
         //SatisfyingTrail.initServer()
+
+        if (FabricLoader.getInstance().environmentType == EnvType.SERVER || FabricLoader.getInstance().isDevelopmentEnvironment) {
+            SlipperyEnchantment.initServer()
+        }
     }
 
     override fun onInitializeClient() {
@@ -72,7 +78,7 @@ object StupidEnchantments : ModInitializer, ClientModInitializer {
         GlitchEnchantment.initClient()
         CameraShaker.initClient()
         PressLuftHammer.initClient()
-        //SlipperyEnchantment.initClient()
+        SlipperyEnchantment.initClient()
         VerificationEnchantment.initClient()
         HelicopterEnchantment.initClient()
         HelicopterEnchantmentV2.initClient()

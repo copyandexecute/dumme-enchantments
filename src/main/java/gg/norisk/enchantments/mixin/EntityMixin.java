@@ -8,6 +8,7 @@ import gg.norisk.enchantments.impl.GlitchEnchantment;
 //import gg.norisk.enchantments.impl.SlipperyEnchantment;
 //import gg.norisk.enchantments.impl.SquishEnchantment;
 //import gg.norisk.enchantments.impl.TrashEnchantment;
+import gg.norisk.enchantments.impl.SlipperyEnchantment;
 import gg.norisk.enchantments.utils.Animation;
 //import gg.norisk.satisfying.SatisfyingCrush;
 //import gg.norisk.satisfying.SatisfyingSuperStar;
@@ -47,6 +48,17 @@ public abstract class EntityMixin {
     private Float stupidLimbPos;
     @Unique
     private Animation stupidBalloonAnimation;
+
+    @WrapOperation(
+            method = "playStepSound",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V")
+    )
+    private void playStepSoundWrapper(Entity instance, SoundEvent soundEvent, float f, float g, Operation<Void> original) {
+        if (SlipperyEnchantment.INSTANCE.applyStepSound(instance, soundEvent, f, g, original)) {
+        } else {
+            original.call(instance, soundEvent, f, g);
+        }
+    }
 
     /*@NotNull
     @Override

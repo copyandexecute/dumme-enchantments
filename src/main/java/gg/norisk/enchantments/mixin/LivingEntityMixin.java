@@ -8,6 +8,7 @@ import gg.norisk.enchantments.EnchantmentUtils;
 import gg.norisk.enchantments.impl.InvertedEnchantment;
 //import gg.norisk.enchantments.impl.MedusaEnchantment;
 //import gg.norisk.enchantments.impl.SlipperyEnchantment;
+import gg.norisk.enchantments.impl.SlipperyEnchantment;
 import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -30,6 +31,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
+    @Redirect(method = "travelMidAir", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
+    private float injected(Block instance) {
+        return SlipperyEnchantment.INSTANCE.apply((LivingEntity) (Object) this, instance);
+    }
+
     /*@Shadow
     protected abstract float getKnockbackAgainst(Entity entity, DamageSource damageSource);
 
@@ -52,12 +58,6 @@ public abstract class LivingEntityMixin {
     private void getFallSoundInjection(int i, CallbackInfoReturnable<SoundEvent> cir) {
         EnchantmentUtils.INSTANCE.applyFallSound((LivingEntity) (Object) this, i, cir);
     }
-
-    @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getSlipperiness()F"))
-    private float injected(Block instance) {
-        return SlipperyEnchantment.INSTANCE.apply((LivingEntity) (Object) this, instance);
-    }
-
     @ModifyExpressionValue(method = "playHurtSound", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getHurtSound(Lnet/minecraft/entity/damage/DamageSource;)Lnet/minecraft/sound/SoundEvent;"))
     private SoundEvent stupid$MedusaHurtSound(SoundEvent original) {
         if (MedusaEnchantment.INSTANCE.isStupidMedusa((LivingEntity) (Object) this)) {

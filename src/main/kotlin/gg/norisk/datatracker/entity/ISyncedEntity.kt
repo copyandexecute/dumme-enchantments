@@ -8,7 +8,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import net.minecraft.entity.Entity
 import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtHelper
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.math.BlockPos
 import net.silkmc.silk.core.event.Event
@@ -17,6 +16,7 @@ import net.silkmc.silk.nbt.toNbt
 import net.silkmc.silk.network.packet.s2cPacket
 import org.joml.Vector3f
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 interface ISyncedEntity {
     fun getSyncedValuesMap(): MutableMap<String, Any>
@@ -51,7 +51,12 @@ fun initSyncedEntitiesClient() {
 
             for ((clazz, serializer) in registeredTypes) {
                 if (packet.second.clazz == clazz.toString()) {
-                    val decodedValue = runCatching { dataTrackerJson.decodeFromString(serializer as KSerializer<Any>, packet.second.value) }.onFailure { it.printStackTrace() }.getOrNull()
+                    val decodedValue = runCatching {
+                        dataTrackerJson.decodeFromString(
+                            serializer as KSerializer<Any>,
+                            packet.second.value
+                        )
+                    }.onFailure { it.printStackTrace() }.getOrNull()
                     logger.debug("Setting {} {}", entity, packet)
                     entity?.setSyncedData(packet.first.key, decodedValue)
                     break
@@ -111,42 +116,123 @@ fun Entity.syncValue(key: String, value: Any, player: ServerPlayerEntity? = null
     }
 }
 
+private const val PREFIX = "nrc"
+fun String.toHGLaborNBTKey() = "$PREFIX:$this"
+
+internal fun Entity.readSyncedNbtData(nbtCompound: NbtCompound) {
+    for (key in nbtCompound.keys.filter { it.startsWith("$PREFIX:") }) {
+        try {
+            val normalizedKey = key.removePrefix("$PREFIX:")
+            val intValue = nbtCompound.getInt(key).getOrNull()
+            if (intValue != null) {
+                setSyncedData(normalizedKey, intValue)
+                continue
+            }
+            val stringValue = nbtCompound.getString(key).getOrNull()
+            if (stringValue != null) {
+
+                try {
+                    //edge case weil die boolean 1 / 0 speichern und blablablabla
+                    val boolean = stringValue.toBooleanStrictOrNull()
+                    if (boolean != null) {
+                        setSyncedData(normalizedKey, boolean)
+                        continue
+                    }
+                } catch (e: NumberFormatException) {
+                }
+
+                var wasSuccess = false
+                for ((clazz, serializer) in registeredTypes) {
+                    runCatching {
+                        Json.decodeFromString(serializer as KSerializer<Any>, stringValue)
+                    }.onSuccess {
+                        //logger.info("###Key: $normalizedKey string value: $stringValue $it entity: ${this}")
+                        setSyncedData(normalizedKey, it)
+                        wasSuccess = true
+                    }
+                    if (wasSuccess) {
+                        continue
+                    }
+                }
+                if (wasSuccess) {
+                    continue
+                }
+
+                setSyncedData(normalizedKey, stringValue)
+                continue
+            }
+            val doubleValue = nbtCompound.getDouble(key).getOrNull()
+            if (doubleValue != null) {
+                setSyncedData(normalizedKey, doubleValue)
+                continue
+            }
+            val floatValue = nbtCompound.getFloat(key).getOrNull()
+            if (floatValue != null) {
+                setSyncedData(normalizedKey, floatValue)
+                continue
+            }
+            val longValue = nbtCompound.getLong(key).getOrNull()
+            if (longValue != null) {
+                setSyncedData(normalizedKey, longValue)
+                continue
+            }
+            val blockPosValue = nbtCompound.get(key, BlockPos.CODEC).getOrNull()
+            if (blockPosValue != null) {
+                setSyncedData(normalizedKey, blockPosValue)
+                continue
+            }
+        } catch (e: Exception) {
+
+        }
+    }
+}
+
 internal fun Entity.writeSyncedNbtData(nbtCompound: NbtCompound) {
     for ((key, value) in (this as ISyncedEntity).getSyncedValuesMap()) {
         runCatching {
+            val internalKey = key.toHGLaborNBTKey()
             //JUP, wäre irgendwie so geil wenn man den registered type code von oben smarter hier einbauen kann
             //das es direkt für alles geht aber erstmal low prio...
             when (value) {
                 is Int -> {
-                    nbtCompound.put(key, value.toNbt())
+                    nbtCompound.put(internalKey, value.toNbt())
                 }
 
                 is Boolean -> {
-                    nbtCompound.put(key, value.toNbt())
+                    nbtCompound.put(internalKey, if (value) "true".toNbt() else "false".toNbt())
                 }
 
                 is String -> {
-                    nbtCompound.put(key, value.toNbt())
+                    nbtCompound.put(internalKey, value.toNbt())
                 }
 
                 is Double -> {
-                    nbtCompound.put(key, value.toNbt())
+                    nbtCompound.put(internalKey, value.toNbt())
                 }
 
                 is BlockPos -> {
-                    //TODO 1.21.5 1nbtCompound.put(key, NbtHelper.fromBlockPos(value))
+                    nbtCompound.putNullable(internalKey, BlockPos.CODEC, value)
                 }
 
                 is Float -> {
-                    nbtCompound.put(key, value.toNbt())
+                    nbtCompound.put(internalKey, value.toNbt())
                 }
 
                 is Long -> {
-                    nbtCompound.put(key, value.toNbt())
+                    nbtCompound.put(internalKey, value.toNbt())
                 }
 
                 else -> {
-                    logger.debug("NOT SUPPORTED: [{}/{}] {}", key, value, value::class)
+                    for ((clazz, serializer) in registeredTypes) {
+                        if (value::class == clazz) {
+                            nbtCompound.put(
+                                internalKey,
+                                Json.encodeToString(serializer as KSerializer<Any>, value).toNbt()
+                            )
+                            return@runCatching
+                        }
+                    }
+                    logger.info("NOT SUPPORTED: [{$key}/{$value}] {${value::class}}")
                 }
             }
         }.onSuccess {}.onFailure {
@@ -172,7 +258,7 @@ fun Entity.syncValues(player: ServerPlayerEntity? = null) {
 }
 
 fun Entity.unsetSyncedData(key: String, player: ServerPlayerEntity? = null) {
-    logger.debug("Client={} Unset Synced Data {} {} {}", world.isClient, key, player)
+    logger.debug("Client={} Unset Synced Data {} {}", world.isClient, key, player)
     val oldValue = this.getSyncedData<Any?>(key)
     (this as ISyncedEntity).getSyncedValuesMap().remove(key)
     syncedValueChangeEvent.invoke(SyncedValueChangeEvent(key, this, oldValue))

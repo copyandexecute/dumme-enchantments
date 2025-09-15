@@ -1,6 +1,7 @@
 package gg.norisk.enchantments.mixin.freeze;
 
 import gg.norisk.enchantments.impl.freeze.FreezeOverlayFeatureRenderer;
+import gg.norisk.enchantments.utils.SlipperyBlockFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -29,5 +30,6 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     @Inject(method = "<init>", at = @At("TAIL"))
     private void initDataTrackerInjecetion(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius, CallbackInfo ci) {
         this.addFeature(new FreezeOverlayFeatureRenderer<>((FeatureRendererContext) (Object) this));
+        //this.addFeature(new SlipperyBlockFeatureRenderer<>((FeatureRendererContext) (Object) this, ctx.getPart()));
     }
 }
